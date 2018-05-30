@@ -11,15 +11,15 @@ class App extends Component {
     const appClassName = 'App';
     const students = [
       {
-        name: 'Zheng',
+        name: 'Mi',
         age: 21,
-        email:'zheng@ada.edu'
+        email:'mi@ada.edu'
       },
       {
         name: 'Dee',
         age: 21,
         email:'dee@ada.edu'
-      }
+      },
   ];
 
   const studentComponents = students.map((student) => {
