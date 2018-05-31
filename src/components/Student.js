@@ -1,13 +1,12 @@
-import React, {Component} from 'react'; //import React from library
-import './Student.css';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './Student.css';
 
-class Student extends Component {  // create a class
+class Student extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isPresent: true,
       name: props.name,
     };
   }
@@ -19,60 +18,43 @@ class Student extends Component {  // create a class
   };
 
   isTopStudent = () => {
-    if (this.props.name === 'Mi') {
+    if (this.state.name === 'Ada') {
       return 'top-student';
     }
-    return 'student';
+    return 'student'
   };
 
-  onToggleButton =() => {
-    const isPresent = !this.state.isPresent;
+  // arrow function: this is Student
+  onTogglePresent = () => {
+    console.log(this);
+    this.props.onStudentPresentChange(this.props.index);
+  };
+
+  onNameChange = (event) => {
     this.setState({
-      isPresent,
+      name: event.target.value
     });
   };
 
-  onNameChange =(event) => {
-    console.log(event.target.value);
-    console.log(this.props.name);
-    //   const name = event.target.value;
-    //   this.setState({
-    //     name,
-    //   });
-
-
-    this.setState({
-      name: event.target.value,
-    })
-  };
 
   render() {
-
-    const studentName = this.props.studentData.name;
-    const studentAge = this.props.studentData.age;
-    const studentEmail = this.props.studentData.email;
+    const studentEmail = this.props.email;
+    const studentAge = this.props.age;
 
     return (
-      <article className={ this.props.studentData.name === 'Mi' ? 'top-student' : 'student'}>
-      <h3> {this.state.name}</h3>
-      <input onChange={ this.onNameChange }
-      type="text"
-      name="name"/>
-      <h4> { this.state.isPresent ? "In class": "Absent" }</h4>
-      <p> Age: {studentAge}</p>
-      <p>email: {studentEmail}</p>
-      <button onClick={ this.onToggleButton }>
-      Toggle Present
-      </button>
+      <article
+      className={this.isTopStudent()}>
+        <h3>{this.props.name}</h3>
+        <input onChange={ this.onNameChange } type="text" name="name" />
+        <h4>
+          {this.props.present? "In class" : "Absent"}
+        </h4>
+        <button onClick={ this.onTogglePresent }>Toggle Present</button>
+        <p>Age: {studentAge}</p>
+        <p>Email: {studentEmail}</p>
       </article>
     );
   }
 }
 
-Student.propTypes = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  isPresent: PropTypes.bool,
-};
-
-export default Student;   // needs to be in any file to import this class in that file, so by default they get the Student class
+export default Student;
